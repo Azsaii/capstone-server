@@ -9,7 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -35,6 +41,22 @@ public class PostController {
     public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO newPost){
         PostDTO savedPost = postService.savePost(newPost);
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/uploadImage")
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile image) {
+        try {
+            String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+            Path filePath = Paths.get("uploads/" + fileName);
+            Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            String fileUrl = "http://your-server-domain/uploads/" + fileName;
+            postService.saveImage(fileName, fileUrl);
+
+            return ResponseEntity.ok(fileUrl);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed");
+        }
     }
 
     @DeleteMapping("/{postId}")
