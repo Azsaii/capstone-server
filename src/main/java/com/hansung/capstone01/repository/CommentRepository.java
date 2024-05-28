@@ -1,6 +1,6 @@
 package com.hansung.capstone01.repository;
 
-import com.hansung.capstone01.domain.Comment;
+import com.hansung.capstone01.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

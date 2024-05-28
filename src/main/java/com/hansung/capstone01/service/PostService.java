@@ -1,14 +1,10 @@
 package com.hansung.capstone01.service;
 
 import com.hansung.capstone01.DTO.PostDTO;
-import com.hansung.capstone01.domain.ImageUpload;
-import com.hansung.capstone01.domain.Post;
-import com.hansung.capstone01.repository.ImageUploadRepository;
+import com.hansung.capstone01.entity.Post;
 import com.hansung.capstone01.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +12,6 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
-    private ImageUploadRepository imageRepository;
 
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
@@ -44,14 +39,6 @@ public class PostService {
         PostDTO savedPostDTO = new PostDTO(savedPost.getPostId(), savedPost.getBoardName(), savedPost.getUserEmail(), savedPost.getTitle(), savedPost.getBody(), savedPost.getType());
 
         return savedPostDTO;
-    }
-
-    public ImageUpload saveImage(String fileName, String fileUrl) {
-        ImageUpload imageUpload = new ImageUpload();
-        imageUpload.setFileName(fileName);
-        imageUpload.setFileUrl(fileUrl);
-        imageUpload.setUploadedAt(LocalDateTime.now());
-        return imageRepository.save(imageUpload);
     }
 
     public void deletePost(String postId) {
