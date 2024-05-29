@@ -22,7 +22,7 @@ public class CommentService {
 
         // Comment 엔티티를 CommentDTO로 변환
         List<CommentDTO> CommentDTOs = Comments.stream()
-                .map(Comment -> new CommentDTO(Comment.getCommentId(), Comment.getComment(), Comment.getUserEmail(), Comment.getPostId()))
+                .map(Comment -> new CommentDTO(Comment.getId(), Comment.getCommentId(), Comment.getComment(), Comment.getUserEmail(), Comment.getPostId()))
                 .collect(Collectors.toList());
 
         return CommentDTOs;
@@ -30,13 +30,13 @@ public class CommentService {
 
     public CommentDTO saveComment(CommentDTO newComment) {
         // DTO를 엔티티로 변환
-        Comment Comment = new Comment(newComment.getCommentId(), newComment.getComment(), newComment.getUserEmail(), newComment.getPostId());
+        Comment Comment = new Comment(newComment.getId(), newComment.getCommentId(), newComment.getComment(), newComment.getUserEmail(), newComment.getPostId());
 
         // 저장하고 결과를 엔티티로 받음
         Comment savedComment = CommentRepository.save(Comment);
 
         // 저장된 엔티티를 DTO로 변환
-        CommentDTO savedCommentDTO = new CommentDTO(savedComment.getCommentId(), savedComment.getComment(), savedComment.getUserEmail(), savedComment.getPostId());
+        CommentDTO savedCommentDTO = new CommentDTO(savedComment.getId(), savedComment.getCommentId(), savedComment.getComment(), savedComment.getUserEmail(), savedComment.getPostId());
 
         return savedCommentDTO;
     }

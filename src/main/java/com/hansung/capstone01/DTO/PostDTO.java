@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostDTO {
 
+    private Long id;
     private String postId;
     private String boardName;
     private String userEmail;
