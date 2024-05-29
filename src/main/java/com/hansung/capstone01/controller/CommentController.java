@@ -2,6 +2,7 @@ package com.hansung.capstone01.controller;
 
 import com.hansung.capstone01.DTO.CommentDTO;
 import com.hansung.capstone01.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<CommentDTO> createComment(@RequestBody CommentDTO newComment){
+    public ResponseEntity<CommentDTO> createComment(@Valid @RequestBody CommentDTO newComment){
         CommentDTO savedComment = CommentService.saveComment(newComment);
         return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }

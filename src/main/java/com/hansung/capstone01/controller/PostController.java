@@ -2,6 +2,7 @@ package com.hansung.capstone01.controller;
 
 import com.hansung.capstone01.DTO.PostDTO;
 import com.hansung.capstone01.service.PostService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO newPost){
+    public ResponseEntity<PostDTO> createPost(@Valid @RequestBody PostDTO newPost){
         PostDTO savedPost = postService.savePost(newPost);
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }

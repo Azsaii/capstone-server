@@ -1,6 +1,7 @@
 package com.hansung.capstone01.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class Post {
     @Column(name = "title")
     private String title;
 
+    @Size(min=1, max=5000, message = "Body must be between 1 and 5000 chars")
     @Column(name = "body")
     private String body;
 
