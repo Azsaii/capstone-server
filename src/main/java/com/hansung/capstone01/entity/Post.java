@@ -35,7 +35,4 @@ public class Post {
     @Size(min=1, max=5000, message = "Body must be between 1 and 5000 chars")
     @Column(name = "body")
     private String body;
-
-    @Column(name = "type")
-    private String type;
 }

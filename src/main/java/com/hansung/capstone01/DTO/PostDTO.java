@@ -15,6 +15,5 @@ public class PostDTO {
     private String userEmail;
     private String title;
     private String body;
-    private String type;
 }
 

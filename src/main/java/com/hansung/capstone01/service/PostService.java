@@ -22,7 +22,7 @@ public class PostService {
 
         // Post 엔티티를 PostDTO로 변환
         List<PostDTO> postDTOs = posts.stream()
-                .map(post -> new PostDTO(post.getId(), post.getPostId(), post.getBoardName(), post.getUserEmail(), post.getTitle(), post.getBody(), post.getType()))
+                .map(post -> new PostDTO(post.getId(), post.getPostId(), post.getBoardName(), post.getUserEmail(), post.getTitle(), post.getBody()))
                 .collect(Collectors.toList());
 
         return postDTOs;
@@ -30,13 +30,13 @@ public class PostService {
 
     public PostDTO savePost(PostDTO newPost) {
         // DTO를 엔티티로 변환
-        Post post = new Post(newPost.getId(), newPost.getPostId(), newPost.getBoardName(), newPost.getUserEmail(), newPost.getTitle(), newPost.getBody(), newPost.getType());
+        Post post = new Post(newPost.getId(), newPost.getPostId(), newPost.getBoardName(), newPost.getUserEmail(), newPost.getTitle(), newPost.getBody());
 
         // 저장하고 결과를 엔티티로 받음
         Post savedPost = postRepository.save(post);
 
         // 저장된 엔티티를 DTO로 변환
-        PostDTO savedPostDTO = new PostDTO(savedPost.getId(), savedPost.getPostId(), savedPost.getBoardName(), savedPost.getUserEmail(), savedPost.getTitle(), savedPost.getBody(), savedPost.getType());
+        PostDTO savedPostDTO = new PostDTO(savedPost.getId(), savedPost.getPostId(), savedPost.getBoardName(), savedPost.getUserEmail(), savedPost.getTitle(), savedPost.getBody());
 
         return savedPostDTO;
     }
