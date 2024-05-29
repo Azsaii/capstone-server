@@ -18,17 +18,17 @@ public class ApiController {
     }
 
     @GetMapping("/articles/{page}")
-    public String getArticles(@PathVariable int page) {
+    public String getArticles(@PathVariable("page") int page) {
         return apiService.getArticles(page);
     }
 
     @GetMapping("/character/{eid}")
-    public String getCharacter(@PathVariable String eid) {
+    public String getCharacter(@PathVariable("eid") String eid) {
         return apiService.getCharacter(eid);
     }
 
     @GetMapping("/search/{eid}")
-    public String searchArticle(@PathVariable String eid) {
+    public String searchArticle(@PathVariable("eid") String eid) {
         return apiService.searchArticle(eid);
     }
 }
