@@ -1,6 +1,6 @@
 package com.hansung.capstone01.service;
 
-import com.hansung.capstone01.DTO.CommentDTO;
+import com.hansung.capstone01.dto.CommentDTO;
 import com.hansung.capstone01.entity.Comment;
 import com.hansung.capstone01.repository.CommentRepository;
 import org.springframework.stereotype.Service;

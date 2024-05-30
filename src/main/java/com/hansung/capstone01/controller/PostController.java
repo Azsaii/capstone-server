@@ -1,6 +1,7 @@
 package com.hansung.capstone01.controller;
 
-import com.hansung.capstone01.DTO.PostDTO;
+import com.hansung.capstone01.dto.PostDTO;
+import com.hansung.capstone01.dto.PostSummaryDTO;
 import com.hansung.capstone01.service.PostService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +25,16 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDTO> getPosts(@RequestParam(name = "boardName") String boardName, @RequestParam(name = "index") Long index) {
-        List<PostDTO> posts = postService.findByBoardNameAndIndex(boardName, index);
-        return posts;
+    public ResponseEntity<?> getPosts(@RequestParam(name = "id", required = false) Long id,
+                                      @RequestParam(name = "boardName", required = false) String boardName) {
+        if (id != null) {
+            PostDTO posts = postService.findById(id);
+            return ResponseEntity.ok(posts);
+        } else if (boardName != null) {
+            List<PostSummaryDTO> postSummaryDTOs = postService.findByBoardName(boardName);
+            return ResponseEntity.ok(postSummaryDTOs);
+        }
+        return ResponseEntity.badRequest().body("id 또는 boardName 중 하나는 반드시 제공되어야 합니다.");
     }
 
     @PostMapping

@@ -1,11 +1,9 @@
 package com.hansung.capstone01.service;
 
-import com.hansung.capstone01.DTO.PostDTO;
+import com.hansung.capstone01.dto.PostDTO;
+import com.hansung.capstone01.dto.PostSummaryDTO;
 import com.hansung.capstone01.entity.Post;
 import com.hansung.capstone01.repository.PostRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,16 +18,15 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<PostDTO> findByBoardNameAndIndex(String boardName, Long index) {
-        // index를 이용하여 페이징 처리
-        Pageable pageable = PageRequest.of(index.intValue() / 10, 10, Sort.by(Sort.Direction.DESC, "id"));
-        List<Post> posts = postRepository.findByBoardName(boardName, pageable).getContent();;
+    public PostDTO findById(Long id){
+        Post post = postRepository.findById(id);
+        PostDTO postDTO = new PostDTO(post.getId(), post.getPostId(), post.getBoardName(), post.getUserEmail(), post.getTitle(), post.getBody());
+        return postDTO;
+    }
 
-        List<PostDTO> postDTOs = posts.stream()
-                .map(post -> new PostDTO(post.getId(), post.getPostId(), post.getBoardName(), post.getUserEmail(), post.getTitle(), post.getBody()))
-                .collect(Collectors.toList());
-
-        return postDTOs;
+    public List<PostSummaryDTO> findByBoardName(String boardName) {
+        List<PostSummaryDTO> postSummaryDTOs = postRepository.findPostSummaryByBoardName(boardName);
+        return postSummaryDTOs;
     }
 
     public PostDTO savePost(PostDTO newPost) {
