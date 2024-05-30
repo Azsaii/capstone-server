@@ -11,6 +11,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, String> {
     Post findById(Long id);
 
-    @Query("SELECT new com.hansung.capstone01.dto.PostSummaryDTO(p.id, p.userEmail, p.title) FROM Post p WHERE p.boardName = :boardName")
+    @Query("SELECT new com.hansung.capstone01.dto.PostSummaryDTO(p.id, p.userEmail, p.title) FROM Post p WHERE p.boardName = :boardName ORDER BY p.id DESC")
     List<PostSummaryDTO> findPostSummaryByBoardName(@Param("boardName") String boardName);
+
 }
