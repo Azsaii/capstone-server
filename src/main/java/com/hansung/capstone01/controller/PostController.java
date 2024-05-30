@@ -24,8 +24,8 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDTO> getPosts(@RequestParam(name = "boardName") String boardName){
-        List<PostDTO> posts = postService.findByBoardName(boardName);
+    public List<PostDTO> getPosts(@RequestParam(name = "boardName") String boardName, @RequestParam(name = "index") Long index) {
+        List<PostDTO> posts = postService.findByBoardNameAndIndex(boardName, index);
         return posts;
     }
 

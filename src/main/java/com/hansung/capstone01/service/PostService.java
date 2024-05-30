@@ -3,6 +3,9 @@ package com.hansung.capstone01.service;
 import com.hansung.capstone01.DTO.PostDTO;
 import com.hansung.capstone01.entity.Post;
 import com.hansung.capstone01.repository.PostRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +20,11 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<PostDTO> findByBoardName(String boardName) {
-        List<Post> posts = postRepository.findByBoardName(boardName);
+    public List<PostDTO> findByBoardNameAndIndex(String boardName, Long index) {
+        // index를 이용하여 페이징 처리
+        Pageable pageable = PageRequest.of(index.intValue() / 10, 10, Sort.by(Sort.Direction.DESC, "id"));
+        List<Post> posts = postRepository.findByBoardName(boardName, pageable).getContent();;
 
-        // Post 엔티티를 PostDTO로 변환
         List<PostDTO> postDTOs = posts.stream()
                 .map(post -> new PostDTO(post.getId(), post.getPostId(), post.getBoardName(), post.getUserEmail(), post.getTitle(), post.getBody()))
                 .collect(Collectors.toList());
