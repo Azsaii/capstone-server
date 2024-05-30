@@ -29,6 +29,7 @@ public class Post {
     @Column(name = "userEmail")
     private String userEmail;
 
+    @Size(min=1, max=100, message = "Title must be between 1 and 100 chars")
     @Column(name = "title")
     private String title;
 
