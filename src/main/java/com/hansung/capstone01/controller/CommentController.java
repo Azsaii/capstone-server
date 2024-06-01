@@ -12,7 +12,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000") //로컬에서 동작 시, 포트는 원하는 걸로 변경
+//@CrossOrigin(origins = {"http://52.79.56.22", "http://brainbooster.kro.kr"}) 배포용으로 동작시 EC2 서버 주소, 원하는 도메인 주소로 변경 (단 React 배포 서버가 포트 80이어야 함)
 @RequestMapping("/comments")
 public class CommentController {
 
