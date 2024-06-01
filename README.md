@@ -6,6 +6,11 @@ state.js 파일 수정
 const serverPath = 'http://[EC2 아이피 주소]:8080/';
 ```
 
+setUpProxy.js 파일 수정
+```jsx
+target: 'http://[EC2 아이피 주소]:8080/',
+```
+
 ## 로컬에서 npm install 명령어로 빌드하고 build 폴더를 EC2에 복사
 
 **build 폴더를 옮기는 명령어**
